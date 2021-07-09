@@ -1,7 +1,13 @@
 <template>
   <m-header />
   <tab-bar></tab-bar>
-  <router-view></router-view>
+  <!-- 路由懒加载 -->
+  <router-view v-slot="{ Component }">
+    <!-- 保存每个页面缓存 -->
+    <keep-alive>
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
 </template>
 
 <script>

@@ -5,6 +5,7 @@ const Recommend = () => import("views/recommend");
 const Search = () => import("views/search");
 const Singer = () => import("views/singer");
 const TopList = () => import("views/top-list");
+const User = () => import("views/user");
 const routes = [
   {
     path: "",
@@ -25,6 +26,10 @@ const routes = [
   {
     path: "/top-list",
     component: TopList
+  },
+  {
+    path: "/user",
+    component: User
   }
 ];
 
