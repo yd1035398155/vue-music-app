@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 const Recommend = () => import("views/recommend");
 const Search = () => import("views/search");
 const Singer = () => import("views/singer");
+const SingerDetail = () => import("views/singer-detail");
 const TopList = () => import("views/top-list");
 const User = () => import("views/user");
 const routes = [
@@ -21,7 +22,13 @@ const routes = [
   },
   {
     path: "/singer",
-    component: Singer
+    component: Singer,
+    children: [
+      {
+        path: ":id",
+        component: SingerDetail
+      }
+    ]
   },
   {
     path: "/top-list",
