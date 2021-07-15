@@ -3,16 +3,18 @@
     <div class="back" @click="goBack"><i class="icon-back"></i></div>
     <div class="title">{{ title }}</div>
     <div class="bg-image" :style="bgImageStyle" ref="bgImage">
-      <div class="filter"></div>
+      <div class="filter" :style="filterStyle"></div>
     </div>
     <scroll
       class="list"
       :probe-type="3"
       :style="scrollStyle"
       @scroll="onScroll"
+      v-loading="loading"
+      v-no-result:[noResultText]="noResult"
     >
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
+        <song-list :songs="songs" @select="selectItem"></song-list>
       </div>
     </scroll>
   </div>
@@ -21,6 +23,7 @@
 <script>
 import scroll from "@/components/base/scroll/Scroll";
 import SongList from "@/components/base/song-list/Song-list";
+import { mapActions } from "vuex";
 const RESERVED_HEIGHT = 40;
 export default {
   name: "music-list",
@@ -36,6 +39,13 @@ export default {
     },
     pic: {
       type: String
+    },
+    loading: {
+      type: Boolean
+    },
+    noResultText: {
+      type: String,
+      default: "抱歉，没有找到可播放的歌曲"
     }
   },
   data() {
@@ -59,15 +69,26 @@ export default {
     },
     onScroll(pos) {
       this.scrollY = -pos.y;
-      console.log(this.scrollY);
-    }
+    },
+    selectItem({ song, index }) {
+      this.selectPlay({
+        list: this.songs,
+        index: this.index
+      });
+    },
+    ...mapActions(["selectPlay"])
   },
   computed: {
+    noResult() {
+      return !this.loading && !this.songs.length;
+      // return !this.songs.length;
+    },
     bgImageStyle() {
       // 基于父元素宽度的70%
       let paddingTop = "70%";
       let height = 0;
       let zIndex = 0;
+      // 多次访问一个数据时,保存为局部变量进行优化
       const scrollY = this.scrollY;
       // 解决兼容性问题
       let translateZ = 0;
@@ -77,18 +98,35 @@ export default {
         height = `${RESERVED_HEIGHT}px`;
         translateZ = 1;
       }
-
+      // 下拉放大背景图
+      let scale = 1;
+      if (scrollY < 0) {
+        scale = 1 + Math.abs(scrollY / this.imageHeight);
+      }
       return {
         paddingTop,
         zIndex,
         height,
         backgroundImage: `url(${this.pic})`,
-        transform: `translateZ(${translateZ}px)`
+        transform: `scale(${scale})translateZ(${translateZ}px)`
       };
     },
     scrollStyle() {
       return {
         top: `${this.imageHeight}px`
+      };
+    },
+    filterStyle() {
+      const scrollY = this.scrollY;
+      const imageHeight = this.imageHeight;
+      let blur = 0;
+      if (scrollY >= 0) {
+        blur =
+          Math.min(this.maxTranslateY / imageHeight, scrollY / imageHeight) *
+          20;
+      }
+      return {
+        backdropFilter: `blur(${blur}px)`
       };
     }
   }

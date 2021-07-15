@@ -1,6 +1,11 @@
 <template>
   <div class="singer-detail">
-    <music-list :songs="songs" :pic="pic" :title="title"></music-list>
+    <music-list
+      :songs="songs"
+      :pic="pic"
+      :title="title"
+      :loading="loading"
+    ></music-list>
   </div>
 </template>
 
@@ -8,6 +13,8 @@
 import { getSingerDetail } from "@/service/singer";
 import { processSongs } from "@/service/song";
 import MusicList from "@/components/music-list/Music-list";
+import storage from "good-storage";
+import { SINGER_KEY } from "@/assets/js/constant";
 export default {
   name: "singer-detail",
   components: {
@@ -15,31 +22,53 @@ export default {
   },
   data() {
     return {
-      songs: []
+      songs: [],
+      loading: true
     };
   },
   props: {
     singer: {
-      type: Object,
-      default() {
-        return {};
-      }
-    }
-  },
-  computed: {
-    pic() {
-      // 如果singer存在则返回singer.pic
-      return this.singer && this.singer.pic;
-    },
-    title() {
-      return this.singer && this.singer.name;
+      type: Object
     }
   },
   async created() {
-    const result = await getSingerDetail(this.singer);
-    const songs = await processSongs(result.songs);
-    this.songs = songs;
-    console.log(songs);
+    const computedSinger = this.computedSinger;
+    if (!computedSinger) {
+      const path = this.$route.matched[0].path;
+      this.$router.push({ path });
+      return;
+    }
+    const result = await getSingerDetail(computedSinger);
+    this.songs = await processSongs(result.songs);
+    this.loading = false;
+  },
+  computed: {
+    // 解决刷新报错问题
+    computedSinger() {
+      let ret = null;
+      const singer = this.singer;
+      if (singer) {
+        ret = singer;
+      } else {
+        const cacheSinger = storage.session.get(SINGER_KEY);
+        if (
+          cacheSinger &&
+          (cacheSinger.mid || cacheSinger.id + "") === this.$route.params.id
+        ) {
+          ret = cacheSinger;
+        }
+      }
+      return ret;
+    },
+    pic() {
+      const singer = this.computedSinger;
+      // 如果singer存在则返回singer.pic
+      return singer && singer.pic;
+    },
+    title() {
+      const singer = this.computedSinger;
+      return singer && singer.name;
+    }
   }
 };
 </script>

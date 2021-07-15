@@ -1,6 +1,6 @@
 import { get } from "./base";
 export function processSongs(songs) {
-  if (!songs) {
+  if (!songs.length) {
     return Promise.resolve(songs);
   }
   return get("/api/getSongsUrl", {
