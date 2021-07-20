@@ -39,32 +39,16 @@ route 相当于当前的跳转对象,可从中获取{name,path,params,query};
 
 进入和离开歌手页面的过度动画
 
-## Project setup
+歌单加载失败时的容错机制
 
-```
-npm install
-```
+vuex -debug 模式
 
-### Compiles and hot-reloads for development
+如何使用 vuex,...mapActions([])
 
-```
-npm run serve
-```
+随机播放的显示 bug
 
-\
+## 播放器
 
-### Compiles and minifies for production
+处理 DOM 异常显示
 
-```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+收藏功能

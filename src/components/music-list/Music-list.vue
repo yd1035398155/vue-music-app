@@ -3,6 +3,12 @@
     <div class="back" @click="goBack"><i class="icon-back"></i></div>
     <div class="title">{{ title }}</div>
     <div class="bg-image" :style="bgImageStyle" ref="bgImage">
+      <div class="play-btn-wrapper" @click="random" :style="playBtnStyle">
+        <div v-show="songs.length" class="paly-btn">
+          <i class="icon-play"></i>
+          <span class="play-text">随机播放全部</span>
+        </div>
+      </div>
       <div class="filter" :style="filterStyle"></div>
     </div>
     <scroll
@@ -73,10 +79,13 @@ export default {
     selectItem({ song, index }) {
       this.selectPlay({
         list: this.songs,
-        index: this.index
+        index
       });
     },
-    ...mapActions(["selectPlay"])
+    random() {
+      this.randomPlay(this.songs);
+    },
+    ...mapActions(["selectPlay", "randomPlay"])
   },
   computed: {
     noResult() {
@@ -128,6 +137,13 @@ export default {
       return {
         backdropFilter: `blur(${blur}px)`
       };
+    },
+    playBtnStyle() {
+      let display = "";
+      if (this.scrollY > this.maxTranslateY) {
+        display = "none";
+      }
+      return { display };
     }
   }
 };
@@ -168,6 +184,32 @@ export default {
     width: 100%;
     transform-origin: top;
     background-size: cover;
+    .play-btn-wrapper {
+      position: absolute;
+      left: 50%;
+      bottom: 10%;
+      transform: translateX(-50%);
+      z-index: 20;
+      padding: 5px 10px;
+      border: 1px solid $color-theme;
+      color: $color-theme;
+      border-radius: 200px;
+      .paly-btn {
+        display: flex;
+        vertical-align: bottom;
+        .icon-play {
+          display: inline-block;
+          margin-right: 6px;
+          font-size: $font-size-medium-x;
+        }
+        .play-text {
+          display: inline-block;
+          height: 16px;
+          line-height: 16px;
+          font-size: $font-size-small;
+        }
+      }
+    }
     .filter {
       position: absolute;
       top: 0;
