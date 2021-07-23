@@ -1,4 +1,5 @@
 import BScroll from "@better-scroll/core";
+// 轮播图下方小点
 import Slide from "@better-scroll/slide";
 import { onMounted, onUnmounted, ref } from "vue";
 BScroll.use(Slide);

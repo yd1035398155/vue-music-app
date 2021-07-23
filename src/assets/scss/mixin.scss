@@ -8,6 +8,7 @@
 
 // 禁止折行
 @mixin no-wrap() {
+  // 超出即隐藏
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

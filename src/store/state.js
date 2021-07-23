@@ -12,6 +12,7 @@ const state = {
   currentIndex: 0,
   // 是否全屏播放
   fullScreen: false,
-  favoriteList: load(FAVORITE_KEY)
+  favoriteList: load(FAVORITE_KEY),
+  playingLyric: ""
 };
 export default state;

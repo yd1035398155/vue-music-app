@@ -1,3 +1,5 @@
+import store from ".";
+
 const mutations = {
   setPlayingState(state, playing) {
     state.playing = playing;
