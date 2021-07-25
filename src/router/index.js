@@ -5,8 +5,10 @@ const Recommend = () => import("views/recommend");
 const Search = () => import("views/search");
 const Singer = () => import("views/singer");
 const SingerDetail = () => import("views/singer-detail");
+const Album = () => import("views/album");
 const TopList = () => import("views/top-list");
 const User = () => import("views/user");
+const TopDetail = () => import("views/top-detail");
 const routes = [
   {
     path: "",
@@ -14,7 +16,13 @@ const routes = [
   },
   {
     path: "/recommend",
-    component: Recommend
+    component: Recommend,
+    children: [
+      {
+        path: ":id",
+        component: Album
+      }
+    ]
   },
   {
     path: "/search",
@@ -32,7 +40,13 @@ const routes = [
   },
   {
     path: "/top-list",
-    component: TopList
+    component: TopList,
+    children: [
+      {
+        path: ":id",
+        component: TopDetail
+      }
+    ]
   },
   {
     path: "/user",

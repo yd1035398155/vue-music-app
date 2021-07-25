@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import scroll from "@/components/base/scroll/Scroll";
+import Scroll from "@/components/wrap-scroll";
 import SongList from "@/components/base/song-list/Song-list";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 const RESERVED_HEIGHT = 40;
 export default {
   name: "music-list",
@@ -66,7 +66,7 @@ export default {
     this.maxTranslateY = this.imageHeight - RESERVED_HEIGHT;
   },
   components: {
-    scroll,
+    Scroll,
     SongList
   },
   methods: {
@@ -121,8 +121,10 @@ export default {
       };
     },
     scrollStyle() {
+      const bottom = this.playlist.length ? "60px" : "0";
       return {
-        top: `${this.imageHeight}px`
+        top: `${this.imageHeight}px`,
+        bottom
       };
     },
     filterStyle() {
@@ -144,7 +146,8 @@ export default {
         display = "none";
       }
       return { display };
-    }
+    },
+    ...mapState(["playlist"])
   }
 };
 </script>

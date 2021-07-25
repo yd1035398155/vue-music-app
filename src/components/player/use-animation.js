@@ -67,15 +67,17 @@ export default function useAnimation() {
   }
 
   function getPosAndScale() {
+    // 缩放后的宽
     const targetWidth = 40;
+    // 缩放后圆心的偏移量
     const paddingLeft = 40;
     const paddingBottom = 30;
     const paddingTop = 80;
     const width = window.innerWidth * 0.8;
+    //计算缩放前后的偏移量和缩放量
     const x = -(window.innerWidth / 2 - paddingLeft);
     const y = window.innerHeight - paddingTop - width / 2 - paddingBottom;
     const scale = targetWidth / width;
-
     return {
       x,
       y,

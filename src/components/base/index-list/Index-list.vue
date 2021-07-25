@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import Scroll from "@/components/base/scroll/Scroll";
+import Scroll from "@/components/wrap-scroll";
 import useFixed from "./use-fixed";
 import useShortcut from "./use-shortcut";
 export default {
@@ -98,12 +98,13 @@ export default {
   height: 100%;
   overflow: hidden;
   .group {
+    padding-bottom: 30px;
     .title {
       height: 30px;
       line-height: 30px;
-      background: $color-highlight-background;
       padding-left: 20px;
-      font-size: 12px;
+      background: $color-highlight-background;
+      font-size: $font-size-small;
       color: $color-text-l;
     }
     .item {

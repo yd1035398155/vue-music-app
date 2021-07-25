@@ -1,9 +1,9 @@
 <template>
-  <div class="singer-detail">
+  <div class="top-detail">
     <music-list
       :songs="songs"
-      :pic="pic"
       :title="title"
+      :pic="pic"
       :loading="loading"
     ></music-list>
   </div>
@@ -11,23 +11,20 @@
 
 <script>
 import createDetailComponent from "@/assets/js/create-detail-component";
-import { getSingerDetail } from "@/service/singer";
-import { SINGER_KEY } from "@/assets/js/constant";
-export default createDetailComponent(
-  "singer-detail",
-  SINGER_KEY,
-  getSingerDetail
-);
+import { getTopDetail } from "@/service/top-list";
+import { TOP_KEY } from "@/assets/js/constant";
+
+export default createDetailComponent("top-detail", TOP_KEY, getTopDetail);
 </script>
 
 <style lang="scss" scoped>
-.singer-detail {
+.top-detail {
   position: fixed;
   z-index: 10;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: $color-background;
+  background: $color-background;
 }
 </style>
