@@ -123,8 +123,10 @@ import useMode from "./use-mode";
 import useFavorite from "./use-favorite";
 import useCd from "./use-cd";
 import useLyric from "./use-lyric";
+import usePlayHistory from "./use-play-history";
 import ProgressBar from "./progress-bar";
 import useMiddleInteractive from "./use-middle-interactive";
+
 import Scroll from "@/components/base/scroll/Scroll";
 import MiniPlayer from "@/components/player/Mini-player";
 import { formatTime } from "@/assets/js/utils";
@@ -185,7 +187,7 @@ export default {
       leave,
       afterLeave
     } = useAnimation();
-
+    const { savePlay } = usePlayHistory();
     // computed
     const playlist = computed(() => store.state.playlist);
 
@@ -298,6 +300,7 @@ export default {
       }
       songReady.value = true;
       playLyric();
+      savePlay(currentSong.value);
     }
 
     function error() {

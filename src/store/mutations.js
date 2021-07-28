@@ -29,6 +29,9 @@ const mutations = {
       }
       // return item;
     });
+  },
+  setPlayHistory(state, songs) {
+    state.playHistory = songs;
   }
 };
 export default mutations;

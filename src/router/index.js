@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 // 载入页面
 
 const Recommend = () => import("views/recommend");
-const Search = () => import("views/search");
+// const Search = () => import("views/search");
 const Singer = () => import("views/singer");
 const SingerDetail = () => import("views/singer-detail");
 const Album = () => import("views/album");
@@ -24,10 +24,10 @@ const routes = [
       }
     ]
   },
-  {
-    path: "/search",
-    component: Search
-  },
+  // {
+  //   path: "/search",
+  //   component: Search
+  // },
   {
     path: "/singer",
     component: Singer,
