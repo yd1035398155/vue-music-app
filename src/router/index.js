@@ -2,12 +2,12 @@ import { createRouter, createWebHistory } from "vue-router";
 // 载入页面
 
 const Recommend = () => import("views/recommend");
-// const Search = () => import("views/search");
+const Search = () => import("views/search");
 const Singer = () => import("views/singer");
 const SingerDetail = () => import("views/singer-detail");
 const Album = () => import("views/album");
 const TopList = () => import("views/top-list");
-const User = () => import("views/user");
+const UserCenter = () => import("views/user-center");
 const TopDetail = () => import("views/top-detail");
 const routes = [
   {
@@ -24,10 +24,6 @@ const routes = [
       }
     ]
   },
-  // {
-  //   path: "/search",
-  //   component: Search
-  // },
   {
     path: "/singer",
     component: Singer,
@@ -38,6 +34,7 @@ const routes = [
       }
     ]
   },
+
   {
     path: "/top-list",
     component: TopList,
@@ -49,8 +46,18 @@ const routes = [
     ]
   },
   {
+    path: "/search",
+    component: Search,
+    children: [
+      {
+        path: ":id",
+        component: SingerDetail
+      }
+    ]
+  },
+  {
     path: "/user",
-    component: User
+    component: UserCenter
   }
 ];
 

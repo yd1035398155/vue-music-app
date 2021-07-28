@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import Switches from "@/components/base/switches/switches";
+import Switches from "@/components/base/switches/Switches";
 import Scroll from "@/components/wrap-scroll";
 import SongList from "@/components/base/song-list/Song-list";
 import { mapState, mapActions } from "vuex";
@@ -47,31 +47,31 @@ export default {
     };
   },
   computed: {
-    //     noResult() {
-    //       return this.currentIndex === 0
-    //         ? !this.favoriteList.length
-    //         : !this.playHistory.length;
-    //     },
-    //     noResultText() {
-    //       return this.currentIndex === 0 ? "暂无收藏歌曲" : "你还没有听过歌曲";
-    //     },
-    //     currentList() {
-    //       return this.currentIndex === 0 ? this.favoriteList : this.playHistory;
-    //     },
+    noResult() {
+      return this.currentIndex === 0
+        ? !this.favoriteList.length
+        : !this.playHistory.length;
+    },
+    noResultText() {
+      return this.currentIndex === 0 ? "暂无收藏歌曲" : "你还没有听过歌曲";
+    },
+    currentList() {
+      return this.currentIndex === 0 ? this.favoriteList : this.playHistory;
+    },
     ...mapState(["favoriteList", "playHistory"])
+  },
+  methods: {
+    back() {
+      this.$router.back();
+    },
+    selectSong({ song }) {
+      this.addSong(song);
+    },
+    random() {
+      this.randomPlay(this.currentList);
+    },
+    ...mapActions(["addSong", "randomPlay"])
   }
-  //   methods: {
-  //     back() {
-  //       this.$router.back();
-  //     },
-  //     selectSong({ song }) {
-  //       this.addSong(song);
-  //     },
-  //     random() {
-  //       this.randomPlay(this.currentList);
-  //     },
-  //     ...mapActions(["addSong", "randomPlay"])
-  //   }
 };
 </script>
 

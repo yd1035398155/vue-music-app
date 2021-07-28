@@ -6,7 +6,7 @@
     v-no-result:[noResultText]="noResult"
   >
     <ul class="suggest-list">
-      <li class="suggest-item" v-if="singer">
+      <li class="suggest-item" v-if="singer" @click="selectSinger">
         <div class="icon">
           <i class="icon-mine"></i>
         </div>
@@ -14,7 +14,12 @@
           <p class="text">{{ singer.name }}</p>
         </div>
       </li>
-      <li class="suggest-item" v-for="song in songs" :key="song.id">
+      <li
+        class="suggest-item"
+        v-for="song in songs"
+        :key="song.id"
+        @click="selectSong(song)"
+      >
         <div class="icon">
           <i class="icon-music"></i>
         </div>
@@ -22,7 +27,7 @@
           <p class="text">{{ song.singer }}-{{ song.name }}</p>
         </div>
       </li>
-      <!-- <div class="suggest-item" v-loading:[loadingText]="pullUpLoading"></div> -->
+      <div class="suggest-item" v-loading:[loadingText]="pullUpLoading"></div>
     </ul>
   </div>
 </template>
@@ -51,7 +56,6 @@ export default {
     const loadingText = ref("");
     const noResultText = ref("抱歉，暂无搜索结果");
     const manualLoading = ref(false);
-
     const loading = computed(() => {
       return !singer.value && !songs.value.length;
     });
@@ -82,7 +86,6 @@ export default {
         await searchFirst();
       }
     );
-
     async function searchFirst() {
       if (!props.query) {
         return;
@@ -96,8 +99,8 @@ export default {
       songs.value = await processSongs(result.songs);
       singer.value = result.singer;
       hasMore.value = result.hasMore;
-      // await nextTick();
-      // await makeItScrollable();
+      await nextTick();
+      await makeItScrollable();
     }
 
     async function searchMore() {

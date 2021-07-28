@@ -41,13 +41,17 @@
       </div>
     </scroll>
     <div class="search-result" v-show="query">
-      <suggest :query="query"></suggest>
+      <suggest
+        :query="query"
+        @select-song="selectSong"
+        @select-singer="selectSinger"
+      ></suggest>
     </div>
-    <!-- <router-view v-slot="{ Component }">
+    <router-view v-slot="{ Component }">
       <transition appear name="slide">
         <component :is="Component" :data="selectedSinger" />
       </transition>
-    </router-view> -->
+    </router-view>
   </div>
 </template>
 
@@ -59,10 +63,10 @@ import Scroll from "@/components/wrap-scroll";
 // import Confirm from "@/components/base/confirm/confirm";
 import { ref, computed, watch, nextTick } from "vue";
 import { getHotKeys } from "@/service/search";
-// import { useStore } from "vuex";
-// import { useRouter } from "vue-router";
-// import storage from "good-storage";
-// import { SINGER_KEY } from "@/assets/js/constant";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import storage from "good-storage";
+import { SINGER_KEY } from "@/assets/js/constant";
 // import useSearchHistory from "@/components/search/use-search-history";
 
 export default {
@@ -77,14 +81,14 @@ export default {
   setup() {
     const query = ref("");
     const hotKeys = ref([]);
-    // const selectedSinger = ref(null);
+    const selectedSinger = ref(null);
     // const scrollRef = ref(null);
     // const confirmRef = ref(null);
 
-    // const store = useStore();
+    const store = useStore();
     // const searchHistory = computed(() => store.state.searchHistory);
 
-    // const router = useRouter();
+    const router = useRouter();
 
     // const { saveSearch, deleteSearch, clearSearch } = useSearchHistory();
 
@@ -108,39 +112,39 @@ export default {
       query.value = s;
     }
 
-    // function selectSong(song) {
-    //   saveSearch(query.value);
-    //   store.dispatch("addSong", song);
-    // }
+    function selectSong(song) {
+      saveSearch(query.value);
+      store.dispatch("addSong", song);
+    }
 
-    // function selectSinger(singer) {
-    //   saveSearch(query.value);
-    //   selectedSinger.value = singer;
-    //   cacheSinger(singer);
+    function selectSinger(singer) {
+      saveSearch(query.value);
+      selectedSinger.value = singer;
+      cacheSinger(singer);
 
-    //   router.push({
-    //     path: `/search/${singer.mid}`
-    //   });
-    // }
+      router.push({
+        path: `/search/${singer.mid}`
+      });
+    }
 
-    // function cacheSinger(singer) {
-    //   storage.session.set(SINGER_KEY, singer);
-    // }
+    function cacheSinger(singer) {
+      storage.session.set(SINGER_KEY, singer);
+    }
 
     // function showConfirm() {
     //   confirmRef.value.show();
     // }
 
     return {
-      // scrollRef,
+      scrollRef,
       // confirmRef,
       query,
       hotKeys,
-      // selectedSinger,
+      selectedSinger,
       // searchHistory,
-      addQuery
-      // selectSong,
-      // selectSinger,
+      addQuery,
+      selectSong,
+      selectSinger
       // showConfirm,
       // // searchHistory
       // deleteSearch,

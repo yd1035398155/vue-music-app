@@ -5,6 +5,7 @@ const ERR_OK = 0;
 //   process.env.NODE_ENV === "production"
 //     ? "http://ustbhuangyi.com/music-next/"
 //     : "/";
+
 const baseURL = "/";
 axios.defaults.baseURL = baseURL;
 export function get(url, params) {

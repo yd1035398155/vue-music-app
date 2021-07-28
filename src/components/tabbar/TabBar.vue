@@ -30,11 +30,11 @@ export default {
         {
           name: "排行",
           path: "/top-list"
+        },
+        {
+          name: "搜索",
+          path: "/search"
         }
-        // {
-        //   name: "搜索",
-        //   path: "/search"
-        // }
       ]
     };
   }

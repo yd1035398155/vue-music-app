@@ -17,7 +17,7 @@ export function processSongs(songs) {
         })
         // 过滤掉不能播放的歌
         .filter(song => {
-          return song.url.indexOf("vkey") > -1;
+          return song.url && song.url.indexOf("vkey") > -1;
         })
     );
   });
