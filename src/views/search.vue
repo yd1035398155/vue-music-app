@@ -18,7 +18,7 @@
             </li>
           </ul>
         </div>
-        <!-- <div class="search-history" v-show="searchHistory.length">
+        <div class="search-history" v-show="searchHistory.length">
           <h1 class="title">
             <span class="text">搜索历史</span>
             <span class="clear" @click="showConfirm">
@@ -37,7 +37,7 @@
             @select="addQuery"
             @delete="deleteSearch"
           ></search-list>
-        </div> -->
+        </div>
       </div>
     </scroll>
     <div class="search-result" v-show="query">
@@ -58,7 +58,7 @@
 <script>
 import SearchInput from "@/components/search/search-input";
 import Suggest from "@/components/search/suggest";
-// import SearchList from "@/components/base/search-list/search-list";
+import SearchList from "@/components/search/search-list";
 import Scroll from "@/components/wrap-scroll";
 // import Confirm from "@/components/base/confirm/confirm";
 import { ref, computed, watch, nextTick } from "vue";
@@ -74,7 +74,7 @@ export default {
   components: {
     // Confirm,
     Scroll,
-    // SearchList,
+    SearchList,
     SearchInput,
     Suggest
   },
@@ -136,7 +136,7 @@ export default {
     // }
 
     return {
-      scrollRef,
+      // scrollRef,
       // confirmRef,
       query,
       hotKeys,

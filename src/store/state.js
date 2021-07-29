@@ -1,5 +1,5 @@
 import { load } from "@/assets/js/array-store";
-import { PLAY_MODE, FAVORITE_KEY } from "@/assets/js/constant";
+import { PLAY_MODE, FAVORITE_KEY, SEARCH_KEY } from "@/assets/js/constant";
 
 const state = {
   //原始歌单
@@ -13,7 +13,7 @@ const state = {
   // 是否全屏播放
   fullScreen: false,
   favoriteList: load(FAVORITE_KEY),
-  playingLyric: "",
+  searchHistory: load(SEARCH_KEY),
   playHistory: []
 };
 export default state;
