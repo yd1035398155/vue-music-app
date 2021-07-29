@@ -1,9 +1,14 @@
 <template>
   <div class="search-list">
     <transition-group name="list" tag="ul">
-      <li v-for="item in searches" :key="item" class="search-item">
+      <li
+        v-for="item in searches"
+        :key="item"
+        class="search-item"
+        @click="selectItem(item)"
+      >
         <span class="text">{{ item }}</span>
-        <span class="icon">
+        <span class="icon" @click.stop="deleteItem(item)">
           <i class="icon-delete"></i>
         </span>
       </li>
@@ -20,6 +25,16 @@ export default {
       default() {
         return [];
       }
+    }
+  },
+  emits: ["select", "delete"],
+  methods: {
+    // 此组件为基础组件,可以派发事件,让父组件负责业务逻辑
+    selectItem(item) {
+      this.$emit("select", item);
+    },
+    deleteItem(item) {
+      this.$emit("delete", item);
     }
   }
 };

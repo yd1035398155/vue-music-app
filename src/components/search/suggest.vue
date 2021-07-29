@@ -116,6 +116,7 @@ export default {
     }
 
     async function makeItScrollable() {
+      // 当容器大于内容时
       if (scroll.value.maxScrollY >= -1) {
         manualLoading.value = true;
         await searchMore();

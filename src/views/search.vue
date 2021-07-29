@@ -58,21 +58,21 @@
 <script>
 import SearchInput from "@/components/search/search-input";
 import Suggest from "@/components/search/suggest";
-import SearchList from "@/components/search/search-list";
+import SearchList from "@/components/base/search-list/search-list";
 import Scroll from "@/components/wrap-scroll";
-// import Confirm from "@/components/base/confirm/confirm";
+import Confirm from "@/components/base/confirm/Confirm";
 import { ref, computed, watch, nextTick } from "vue";
 import { getHotKeys } from "@/service/search";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import storage from "good-storage";
 import { SINGER_KEY } from "@/assets/js/constant";
-// import useSearchHistory from "@/components/search/use-search-history";
+import useSearchHistory from "@/components/search/use-search-history";
 
 export default {
   name: "search",
   components: {
-    // Confirm,
+    Confirm,
     Scroll,
     SearchList,
     SearchInput,
@@ -82,31 +82,30 @@ export default {
     const query = ref("");
     const hotKeys = ref([]);
     const selectedSinger = ref(null);
-    // const scrollRef = ref(null);
-    // const confirmRef = ref(null);
+    const scrollRef = ref(null);
+    const confirmRef = ref(null);
 
     const store = useStore();
-    // const searchHistory = computed(() => store.state.searchHistory);
+    const searchHistory = computed(() => store.state.searchHistory);
 
     const router = useRouter();
 
-    // const { saveSearch, deleteSearch, clearSearch } = useSearchHistory();
+    const { saveSearch, deleteSearch, clearSearch } = useSearchHistory();
 
     getHotKeys().then(result => {
       hotKeys.value = result.hotKeys;
     });
 
-    watch(query, val => {
-      // if (!newQuery) {
-      //   await nextTick();
-      //   refreshScroll();
-      // }
-      console.log(val);
+    watch(query, async newQuery => {
+      if (!newQuery) {
+        await nextTick();
+        refreshScroll();
+      }
     });
 
-    // function refreshScroll() {
-    //   scrollRef.value.scroll.refresh();
-    // }
+    function refreshScroll() {
+      scrollRef.value.scroll.refresh();
+    }
 
     function addQuery(s) {
       query.value = s;
@@ -131,24 +130,23 @@ export default {
       storage.session.set(SINGER_KEY, singer);
     }
 
-    // function showConfirm() {
-    //   confirmRef.value.show();
-    // }
+    function showConfirm() {
+      confirmRef.value.show();
+    }
 
     return {
-      // scrollRef,
-      // confirmRef,
+      scrollRef,
+      confirmRef,
       query,
       hotKeys,
       selectedSinger,
-      // searchHistory,
+      searchHistory,
       addQuery,
       selectSong,
-      selectSinger
-      // showConfirm,
-      // // searchHistory
-      // deleteSearch,
-      // clearSearch
+      selectSinger,
+      showConfirm,
+      deleteSearch,
+      clearSearch
     };
   }
 };
