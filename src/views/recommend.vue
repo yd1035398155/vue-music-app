@@ -114,6 +114,8 @@ export default {
       .item {
         display: flex;
         padding: 0 20px 20px 20px;
+        box-sizing: border-box;
+        align-items: center;
         .icon {
           width: 60px;
           height: 60px;
@@ -125,14 +127,16 @@ export default {
         .text {
           display: flex;
           flex-direction: column;
-          font-size: 14px;
+          justify-content: center;
+          flex: 1;
+          line-height: 20px;
+          overflow: hidden;
+          font-size: $font-size-medium;
           .name {
-            flex: 1;
-            margin-top: 10px;
+            margin-bottom: 10px;
             color: $color-text;
           }
           .title {
-            flex: 1;
             color: $color-text-d;
           }
         }

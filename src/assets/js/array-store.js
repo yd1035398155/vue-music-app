@@ -2,8 +2,11 @@ import storage from "good-storage";
 // 辅助函数
 function insertArray(arr, val, compare, maxLen) {
   const index = arr.findIndex(compare);
-  if (index > -1) {
+  if (index === 0) {
     return;
+  }
+  if (index > 0) {
+    arr.splice(index, 1);
   }
   arr.unshift(val);
   if (maxLen < arr.length) {
@@ -35,4 +38,7 @@ export function load(key) {
 export function clear(key) {
   storage.remove(key);
   return [];
+}
+export function saveAll(items, key) {
+  storage.set(key, items);
 }

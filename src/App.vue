@@ -2,11 +2,16 @@
   <m-header />
   <tab-bar />
   <!-- 路由懒加载 -->
-  <router-view v-slot="{ Component }" :style="viewStyle">
+  <router-view v-slot="{ Component }">
     <!-- 保存每个页面缓存 -->
     <keep-alive>
       <component :is="Component" />
     </keep-alive>
+  </router-view>
+  <router-view v-slot="{ Component }" :style="viewStyle" name="user">
+    <transition appear name="slide">
+      <component :is="Component" />
+    </transition>
   </router-view>
   <player />
 </template>
