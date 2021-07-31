@@ -73,7 +73,7 @@ export function addSong({ commit, state }, song) {
   let currentIndex = state.currentIndex;
   const playIndex = findIndex(playlist, song);
 
-  if (playlist > -1) {
+  if (playIndex > -1) {
     currentIndex = playIndex;
   } else {
     playlist.push(song);
