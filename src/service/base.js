@@ -8,6 +8,7 @@ const ERR_OK = 0;
 
 const baseURL = "/";
 axios.defaults.baseURL = baseURL;
+// axios.defaults.timeout = 5000;
 export function get(url, params) {
   return axios
     .get(url, { params })
