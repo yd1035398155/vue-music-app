@@ -70,9 +70,9 @@ export default {
   .dots-wrapper {
     position: absolute;
     left: 50%;
+    transform: translateX(-50%);
     bottom: 12px;
     line-height: 12px;
-    transform: translateX(-50%);
     .dot {
       display: inline-block;
       margin: 0 4px;

@@ -11,7 +11,9 @@ export default function useSlider(wrapperRef) {
       click: true,
       scrollX: true,
       scrollY: false,
+      //快速滑动时,是否会有惯性
       momentum: false,
+      //是否开启回弹动画
       bounce: false,
       probeType: 2,
       slide: true

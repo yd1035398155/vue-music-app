@@ -661,9 +661,9 @@ function registerHotKeys(app) {
 function registerSearch(app) {
   app.get("/api/search", (req, res) => {
     // const url = "https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp";
-    // const url = "https://shc.y.qq.com/soso/fcgi-bin/search_for_qq_cp";
+    const url = "https://shc.y.qq.com/soso/fcgi-bin/search_for_qq_cp";
     // const url = "https://shc.y.qq.com/soso/fcgi-bin/client_search_cp";
-    const url = "https://c.y.qq.com/soso/fcgi-bin/client_search_cp";
+    // const url = "https://c.y.qq.com/soso/fcgi-bin/client_search_cp";
     const { query, page, showSinger } = req.query;
 
     const data = {
