@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { addClass, removeClass } from "@/assets/js/dom";
-
+// 相对定位,在scss/base中
 const relativeCls = "g-relative";
 
 export default function createLoadingLikeDirective(Comp) {
@@ -9,12 +9,15 @@ export default function createLoadingLikeDirective(Comp) {
     // binding为传递参数,注意要加value
     mounted(el, binding) {
       const app = createApp(Comp);
+
       const instance = app.mount(document.createElement("div"));
       const name = Comp.name;
       if (!el[name]) {
         el[name] = {};
       }
+      // 将ins挂载到el上
       el[name].instance = instance;
+
       const title = binding.arg;
       if (typeof title !== "undefined") {
         instance.setTitle(title);
@@ -35,7 +38,7 @@ export default function createLoadingLikeDirective(Comp) {
       }
     }
   };
-
+  // 挂载操作
   function append(el) {
     const name = Comp.name;
     const style = getComputedStyle(el);
@@ -44,7 +47,7 @@ export default function createLoadingLikeDirective(Comp) {
     }
     el.appendChild(el[name].instance.$el);
   }
-
+  // 移除操作
   function remove(el) {
     const name = Comp.name;
     removeClass(el, relativeCls);
